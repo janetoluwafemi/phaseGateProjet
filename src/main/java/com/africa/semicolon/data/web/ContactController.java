@@ -34,6 +34,7 @@ public class ContactController {
            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()), HttpStatus.BAD_REQUEST);
        }
     }
+
     @DeleteMapping("delete/{phoneNumber}")
     public ResponseEntity<?> removeContact(@PathVariable("phoneNumber") RemoveContactRequest removeContactRequest){
         try {
