@@ -35,9 +35,9 @@ public class ContactController {
        }
     }
     @DeleteMapping("delete/{phoneNumber}")
-    public ResponseEntity<?> removeContact(@PathVariable("phoneNumber") String phoneNumber){
+    public ResponseEntity<?> removeContact(@PathVariable("phoneNumber") RemoveContactRequest removeContactRequest){
         try {
-            RemoveContactResponse removeContactResponse = contactService.removeContact(phoneNumber);
+            RemoveContactResponse removeContactResponse = contactService.removeContact(removeContactRequest);
             return new ResponseEntity<>(new ApiResponse(true,removeContactResponse), HttpStatus.CREATED);
         }
         catch (Exception exception){

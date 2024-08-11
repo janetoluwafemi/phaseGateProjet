@@ -64,6 +64,36 @@ public class UserServiceImpl implements UserService{
         return userLogOutResponse;
     }
 
+
+    @Override
+    public AddContactsResponse userAddContact(AddContactRequest addContactRequest) {
+        User user = userRepo.findUserByEmail(addContactRequest.getUserEmail());
+        if(user.isLogIn()) {
+            AddContactsResponse response = contactService.addContact(addContactRequest);
+            Contact contact = new Contact();
+            List<Contact>listOfContacts = user.getContactList();
+            contact.setFirstName(response.getFirstName());
+            contact.setLastName(response.getLastName());
+            contact.setPhoneNumber(response.getPhoneNumber());
+            contact.setId(response.getId());
+            listOfContacts.add(contact);
+            user.setContactList(listOfContacts);
+            userRepo.save(user);
+            return response;
+        }
+        throw new UserNotLoggedInException("Not Logged In");
+    }
+
+    @Override
+    public RemoveContactResponse userRemoveContact(RemoveContactRequest removeContactRequest) {
+        User user = userRepo.findUserByEmail(removeContactRequest.getUserEmail());
+        if(user.isLogIn()){
+            return contactService.removeContact(removeContactRequest);
+        }
+        throw new UserNotLoggedInException("Not Logged In");
+    }
+
+
     @Override
     public ShareContactResponse userCanShareContact(UserCanShareContactRequest userCanShareContactRequest) {
         User user = userRepo.findUserByEmail(userCanShareContactRequest.getSenderEmail());
@@ -82,34 +112,6 @@ public class UserServiceImpl implements UserService{
             user1.setContactList(receiverUserContacts);
             userRepo.save(user1);
             return response;
-        }
-        throw new UserNotLoggedInException("Not Logged In");
-    }
-
-    @Override
-    public AddContactsResponse userAddContact(AddContactRequest addContactRequest) {
-        User user = userRepo.findUserByEmail(addContactRequest.getUserEmail());
-        if(user.isLogIn()) {
-            AddContactsResponse response = contactService.addContact(addContactRequest);
-            Contact contact = new Contact();
-            List<Contact>listOfContacts = user.getContactList();
-            contact.setFirstName(response.getFirstName());
-            contact.setLastName(response.getLastName());
-            contact.setPhoneNumber(response.getPhoneNumber());
-            listOfContacts.add(contact);
-            user.setContactList(listOfContacts);
-            userRepo.save(user);
-            return response;
-        }
-        throw new UserNotLoggedInException("Not Logged In");
-    }
-
-    @Override
-    public RemoveContactResponse userRemoveContact(UserRemoveContactRequest userRemoveContactRequest) {
-        User user = userRepo.findUserByEmail(userRemoveContactRequest.getUserEmail());
-        if(user.isLogIn()){
-            RemoveContactResponse removeContactResponse = contactService.removeContact(userRemoveContactRequest.getPhoneNumber());
-            return removeContactResponse;
         }
         throw new UserNotLoggedInException("Not Logged In");
     }

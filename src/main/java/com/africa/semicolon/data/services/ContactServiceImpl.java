@@ -23,23 +23,23 @@ public class ContactServiceImpl implements ContactService{
         contact.setFirstName(addContactRequest.getFirstName());
         contact.setLastName(addContactRequest.getLastName());
         contact.setPhoneNumber(addContactRequest.getPhoneNumber());
-        AddContactsResponse addContactResponse = new AddContactsResponse();
-        addContactResponse.setFirstName(contact.getFirstName());
-        addContactResponse.setLastName(contact.getLastName());
-        addContactResponse.setPhoneNumber(contact.getPhoneNumber());
-
         boolean isContactExisting = contactRepo.existsByPhoneNumber(addContactRequest.getPhoneNumber());
         if(isContactExisting){
             throw new NumberAlreadyExistException("Number Already exits");
         }
         contactRepo.save(contact);
+        AddContactsResponse addContactResponse = new AddContactsResponse();
+        addContactResponse.setFirstName(contact.getFirstName());
+        addContactResponse.setLastName(contact.getLastName());
+        addContactResponse.setPhoneNumber(contact.getPhoneNumber());
+        addContactResponse.setId(contact.getId());
         addContactResponse.setMessage("Contact Added Successfully");
         return addContactResponse;
     }
 
     @Override
-    public RemoveContactResponse removeContact(String phoneNumber) {
-        Contact contact = contactRepo.findByPhoneNumber(phoneNumber);
+    public RemoveContactResponse removeContact(RemoveContactRequest removeContactRequest) {
+        Contact contact = contactRepo.findByPhoneNumber(removeContactRequest.getPhoneNumber());
         contactRepo.delete(contact);
         RemoveContactResponse removeContactResponse = new RemoveContactResponse();
         removeContactResponse.setMessage("Contact Removed Successfully");

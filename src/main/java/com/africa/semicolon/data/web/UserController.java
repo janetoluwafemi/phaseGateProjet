@@ -1,19 +1,12 @@
 package com.africa.semicolon.data.web;
 
-import com.africa.semicolon.data.dtos.requests.UserLogInRequest;
-import com.africa.semicolon.data.dtos.requests.UserRegisterRequest;
-import com.africa.semicolon.data.dtos.responses.ApiResponse;
-import com.africa.semicolon.data.dtos.responses.UserLogInResponse;
-import com.africa.semicolon.data.dtos.responses.UserRegisterResponse;
+import com.africa.semicolon.data.dtos.requests.*;
+import com.africa.semicolon.data.dtos.responses.*;
 import com.africa.semicolon.data.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Service
 @RequestMapping
@@ -38,6 +31,46 @@ public class UserController {
         try {
             UserLogInResponse userLogInResponse = userService.userLogIn(userLogInRequest);
             return new ResponseEntity<>(new ApiResponse(true,userLogInResponse),HttpStatus.CREATED);
+        }
+        catch (Exception exception){
+            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()),HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping("logOut")
+    public ResponseEntity<?> userLogOut(@RequestBody UserLogOutRequest userLogOutRequest){
+        try {
+            UserLogOutResponse userLogOutResponse = userService.userLogOut(userLogOutRequest);
+            return new ResponseEntity<>(new ApiResponse(true, userLogOutResponse),HttpStatus.CREATED);
+        }
+        catch (Exception exception){
+            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()),HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping("addContact")
+    public ResponseEntity<?> userAddContact(@RequestBody AddContactRequest addContactRequest){
+        try {
+            AddContactsResponse addContactResponse = userService.userAddContact(addContactRequest);
+            return new ResponseEntity<>(new ApiResponse(true,addContactResponse),HttpStatus.CREATED);
+        }
+        catch (Exception exception){
+            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()),HttpStatus.BAD_REQUEST);
+        }
+    }
+    @DeleteMapping("removeContact")
+    public ResponseEntity<?> userRemoveContact(@RequestBody RemoveContactRequest removeContactRequest){
+        try {
+            RemoveContactResponse removeContactResponse = userService.userRemoveContact(removeContactRequest);
+            return new ResponseEntity<>(new ApiResponse(true,removeContactResponse),HttpStatus.CREATED);
+        }
+        catch (Exception exception){
+            return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()),HttpStatus.BAD_REQUEST);
+        }
+    }
+    @PostMapping("shareContact")
+    public ResponseEntity<?> userCanShareContact(@RequestBody UserCanShareContactRequest userCanShareContactRequest){
+        try {
+            ShareContactResponse shareContactResponse = userService.userCanShareContact(userCanShareContactRequest);
+            return new ResponseEntity<>(new ApiResponse(true,shareContactResponse),HttpStatus.CREATED);
         }
         catch (Exception exception){
             return new ResponseEntity<>(new ApiResponse(false,exception.getMessage()),HttpStatus.BAD_REQUEST);

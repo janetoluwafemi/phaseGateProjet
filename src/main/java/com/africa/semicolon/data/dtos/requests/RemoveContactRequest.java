@@ -10,4 +10,5 @@ public class RemoveContactRequest {
     private String phoneNumber;
     private String firstName;
     private String lastName;
+    private String userEmail;
 }

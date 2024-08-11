@@ -100,6 +100,61 @@ public class UserServiceImplTest {
         assertThat(userLogOutResponse.getMessage()).isEqualTo("Logged Out Successfully");
     }
     @Test
+    public void testThatContactCanBeAdded(){
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setFirstName("OLa");
+        userRegisterRequest.setLastName("Femi");
+        userRegisterRequest.setPhoneNumber("09087654456");
+        userRegisterRequest.setEmail("Ola@email.com");
+        userRegisterRequest.setPassword("1234");
+        UserRegisterResponse userRegisterResponse = userService.registerUser(userRegisterRequest);
+        assertThat(userRegisterResponse.getMessage()).isEqualTo("User Registered Successfully");
+
+        UserLogInRequest userLogInRequest = new UserLogInRequest();
+        userLogInRequest.setEmail("Ola@email.com");
+        userLogInRequest.setPassword("1234");
+        UserLogInResponse userLogInResponse = userService.userLogIn(userLogInRequest);
+        assertThat(userLogInResponse.getMessage()).isEqualTo("Logged In Successfully");
+
+        AddContactRequest addContactRequest = new AddContactRequest();
+        addContactRequest.setFirstName("Lovee");
+        addContactRequest.setLastName("Sam");
+        addContactRequest.setPhoneNumber("090109283745");
+        AddContactsResponse addContactsResponse = contactService.addContact(addContactRequest);
+        assertThat(addContactsResponse.getMessage()).isEqualTo("Contact Added Successfully");
+    }
+    @Test
+    public void testThatContactCanBeRemoved(){
+        UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
+        userRegisterRequest.setFirstName("OLa");
+        userRegisterRequest.setLastName("Femi");
+        userRegisterRequest.setPhoneNumber("09087654456");
+        userRegisterRequest.setEmail("Ola@email.com");
+        userRegisterRequest.setPassword("1234");
+        UserRegisterResponse userRegisterResponse = userService.registerUser(userRegisterRequest);
+        assertThat(userRegisterResponse.getMessage()).isEqualTo("User Registered Successfully");
+
+        UserLogInRequest userLogInRequest = new UserLogInRequest();
+        userLogInRequest.setEmail("Ola@email.com");
+        userLogInRequest.setPassword("1234");
+        UserLogInResponse userLogInResponse = userService.userLogIn(userLogInRequest);
+        assertThat(userLogInResponse.getMessage()).isEqualTo("Logged In Successfully");
+
+        AddContactRequest addContactRequest = new AddContactRequest();
+        addContactRequest.setFirstName("Lovee");
+        addContactRequest.setLastName("Sam");
+        addContactRequest.setPhoneNumber("090109283745");
+        AddContactsResponse addContactsResponse = contactService.addContact(addContactRequest);
+        assertThat(addContactsResponse.getMessage()).isEqualTo("Contact Added Successfully");
+
+        RemoveContactRequest removeContactRequest = new RemoveContactRequest();
+        removeContactRequest.setPhoneNumber("090109283745");
+        removeContactRequest.setFirstName("Lovee");
+        removeContactRequest.setLastName("Sam");
+        RemoveContactResponse removeContactResponse = contactService.removeContact(removeContactRequest);
+        assertThat(removeContactResponse.getMessage()).isEqualTo("Contact Removed Successfully");
+    }
+    @Test
     public void testThatContactCanBeShared(){
         UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
         userRegisterRequest.setFirstName("OLa");

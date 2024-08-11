@@ -5,7 +5,7 @@ import com.africa.semicolon.data.dtos.responses.*;
 
 public interface ContactService {
     AddContactsResponse addContact(AddContactRequest addContactRequest);
-    RemoveContactResponse removeContact(String phoneNumber);
+    RemoveContactResponse removeContact(RemoveContactRequest removeContactRequest);
     FindAllContactResponse findAllContacts(FindAllContactsRequest findAllContactsRequest);
     EditContactResponse editContact(EditContactRequest editContactRequest);
     ShareContactResponse shareContact(ShareContactRequest shareContactRequest);

@@ -55,8 +55,10 @@ public class ContactSeviceImplTest {
         AddContactsResponse addContactsResponse = contactService.addContact(addContactRequest);
         assertThat(contactRepo.count()).isEqualTo(1);
 
+        RemoveContactRequest removeContactRequest = new RemoveContactRequest();
+        removeContactRequest.setPhoneNumber("09058779721");
         assertThat(addContactsResponse.getMessage()).isEqualTo("Contact Added Successfully");
-        RemoveContactResponse removeContactResponse = contactService.removeContact("09058779721");
+        RemoveContactResponse removeContactResponse = contactService.removeContact(removeContactRequest);
         assertThat(contactRepo.count()).isEqualTo(0);
 
         assertThat(removeContactResponse.getMessage()).isEqualTo("Contact Removed Successfully");
