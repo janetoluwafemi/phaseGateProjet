@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Document
 public class Contact {
+
     @Id
     private String id;
     private String firstName;
