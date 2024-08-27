@@ -20,6 +20,7 @@ public class ContactServiceImpl implements ContactService{
     @Override
     public AddContactsResponse addContact(AddContactRequest addContactRequest) {
         Contact contact = new Contact();
+        contact.setUserId(addContactRequest.getUserId());
         contact.setFirstName(addContactRequest.getFirstName());
         contact.setLastName(addContactRequest.getLastName());
         contact.setPhoneNumber(addContactRequest.getPhoneNumber());

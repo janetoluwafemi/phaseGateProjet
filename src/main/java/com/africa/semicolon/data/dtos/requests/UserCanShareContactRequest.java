@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class UserCanShareContactRequest {
     private String phoneNumber;
-    private String senderEmail;
+    private String senderId;
     private String receiverEmail;
 }

@@ -49,6 +49,7 @@ public class UserServiceImpl implements UserService{
             throw new IncorrectPasswordOrEmailException("Email or Password incorrect");
         UserLogInResponse userLogInResponse = new UserLogInResponse();
         userLogInResponse.setMessage("Logged In Successfully");
+        userLogInResponse.setId(user.getId());
         userRepo.save(user);
         return userLogInResponse;
 
@@ -67,17 +68,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public AddContactsResponse userAddContact(AddContactRequest addContactRequest) {
-        User user = userRepo.findUserByEmail(addContactRequest.getUserEmail());
+        User user = userRepo.findUserById(addContactRequest.getUserEmail())
+                .orElseThrow(()->new UserNotLoggedInException("User does not exit"));
         if(user.isLogIn()) {
             AddContactsResponse response = contactService.addContact(addContactRequest);
-            Contact contact = new Contact();
-            List<Contact>listOfContacts = user.getContactList();
-            contact.setFirstName(response.getFirstName());
-            contact.setLastName(response.getLastName());
-            contact.setPhoneNumber(response.getPhoneNumber());
-            contact.setId(response.getId());
-            listOfContacts.add(contact);
-            user.setContactList(listOfContacts);
             userRepo.save(user);
             return response;
         }
@@ -93,23 +87,15 @@ public class UserServiceImpl implements UserService{
         throw new UserNotLoggedInException("Not Logged In");
     }
 
-
     @Override
     public ShareContactResponse userCanShareContact(UserCanShareContactRequest userCanShareContactRequest) {
-        User user = userRepo.findUserByEmail(userCanShareContactRequest.getSenderEmail());
+        User user = userRepo.findUserById(userCanShareContactRequest.getSenderId())
+                .orElseThrow(()->new UserNotLoggedInException("User does not exit"));
         if(user.isLogIn()){
             ShareContactRequest shareContactRequest = new ShareContactRequest();
             shareContactRequest.setPhoneNumber(userCanShareContactRequest.getPhoneNumber());
             ShareContactResponse response = contactService.shareContact(shareContactRequest);
             User user1 = userRepo.findUserByEmail(userCanShareContactRequest.getReceiverEmail());
-            List <Contact>receiverUserContacts = user1.getContactList();
-            Contact contact = new Contact();
-            contact.setPhoneNumber(response.getPhoneNumber());
-            contact.setFirstName(response.getFirstName());
-            contact.setLastName(response.getLastName());
-            contact.setId(response.getId());
-            receiverUserContacts.add(contact);
-            user1.setContactList(receiverUserContacts);
             userRepo.save(user1);
             return response;
         }

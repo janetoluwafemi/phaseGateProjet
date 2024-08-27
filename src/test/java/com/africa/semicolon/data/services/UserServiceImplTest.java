@@ -190,7 +190,7 @@ public class UserServiceImplTest {
 
         UserCanShareContactRequest userCanShareContactRequest = new UserCanShareContactRequest();
         userCanShareContactRequest.setReceiverEmail("Femi27@email.com");
-        userCanShareContactRequest.setSenderEmail("Ola@email.com");
+        userCanShareContactRequest.setSenderId("Ola@email.com");
         userCanShareContactRequest.setPhoneNumber("090109283745");
         ShareContactResponse userCanShareContactResponse = userService.userCanShareContact(userCanShareContactRequest);
         assertThat(userCanShareContactResponse.getMessage()).isEqualTo("Contact Shared Successfully");

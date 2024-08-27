@@ -9,8 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
 @Service
-@RequestMapping
+@RequestMapping("/api/user/")
 @RestController
+@CrossOrigin(origins = "*")
 public class UserController {
     private final UserService userService;
     public UserController(UserService userService){

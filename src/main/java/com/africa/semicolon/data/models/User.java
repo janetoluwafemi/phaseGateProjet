@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@Document
+@Document("contactUser")
 public class User {
     @Id
     private String id;
@@ -18,6 +18,4 @@ public class User {
     private String email;
     private String password;
     private boolean isLogIn;
-    @DBRef
-    private List<Contact> contactList = new ArrayList<>();
 }
