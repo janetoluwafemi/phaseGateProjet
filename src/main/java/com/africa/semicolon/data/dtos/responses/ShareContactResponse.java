@@ -7,8 +7,6 @@ import org.springframework.data.annotation.Id;
 public class ShareContactResponse {
     @Id
     private String id;
-    private String firstName;
-    private String lastName;
     private String phoneNumber;
     private String message;
 }

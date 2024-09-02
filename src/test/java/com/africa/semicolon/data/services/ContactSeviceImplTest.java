@@ -135,8 +135,6 @@ public class ContactSeviceImplTest {
         assertThat(addContactsResponse1.getMessage()).isEqualTo("Contact Added Successfully");
 
         ShareContactRequest shareContactRequest = new ShareContactRequest();
-        shareContactRequest.setFirstName("Ifeoluwa");
-        shareContactRequest.setLastName("Oluwafemi");
         shareContactRequest.setPhoneNumber("09012345678");
         ShareContactResponse shareContactResponse = contactService.shareContact(shareContactRequest);
         assertThat(shareContactResponse.getMessage()).isEqualTo("Contact Shared Successfully");

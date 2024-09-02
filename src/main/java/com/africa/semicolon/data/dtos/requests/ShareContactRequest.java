@@ -5,7 +5,5 @@ import lombok.Data;
 @Data
 public class ShareContactRequest {
     private String phoneNumber;
-    private String firstName;
-    private String lastName;
 
 }

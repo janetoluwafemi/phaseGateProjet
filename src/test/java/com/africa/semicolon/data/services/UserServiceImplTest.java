@@ -34,9 +34,9 @@ public class UserServiceImplTest {
     public void testThatUserCanRegister(){
         UserRegisterRequest userRegisterRequest = new UserRegisterRequest();
         userRegisterRequest.setFirstName("Janet");
-        userRegisterRequest.setLastName("Oluwafemi");
+        userRegisterRequest.setLastName("Femi2");
         userRegisterRequest.setPhoneNumber("09087654321");
-        userRegisterRequest.setEmail("5tt");
+        userRegisterRequest.setEmail("Femi2");
         userRegisterRequest.setPassword("54");
         UserRegisterResponse userRegisterResponse = userService.registerUser(userRegisterRequest);
         assertThat(userRegisterResponse.getMessage()).isEqualTo("User Registered Successfully");
@@ -161,14 +161,14 @@ public class UserServiceImplTest {
         userRegisterRequest.setLastName("Femi");
         userRegisterRequest.setPhoneNumber("09087654456");
         userRegisterRequest.setEmail("Ola@email.com");
-        userRegisterRequest.setPassword("1234");
+        userRegisterRequest.setPassword("123");
         UserRegisterResponse userRegisterResponse = userService.registerUser(userRegisterRequest);
         assertThat(userRegisterResponse.getMessage()).isEqualTo("User Registered Successfully");
 
         UserRegisterRequest userRegisterRequest1 = new UserRegisterRequest();
         userRegisterRequest1.setFirstName("OLa2");
         userRegisterRequest1.setLastName("Femi2");
-        userRegisterRequest1.setPhoneNumber("0908765448564");
+        userRegisterRequest1.setPhoneNumber("09087654485");
         userRegisterRequest1.setEmail("Femi27@email.com");
         userRegisterRequest1.setPassword("1234");
         UserRegisterResponse userRegisterResponse1 = userService.registerUser(userRegisterRequest1);
@@ -177,21 +177,27 @@ public class UserServiceImplTest {
 
         UserLogInRequest userLogInRequest = new UserLogInRequest();
         userLogInRequest.setEmail("Ola@email.com");
-        userLogInRequest.setPassword("1234");
+        userLogInRequest.setPassword("123");
         UserLogInResponse userLogInResponse = userService.userLogIn(userLogInRequest);
         assertThat(userLogInResponse.getMessage()).isEqualTo("Logged In Successfully");
 
+        UserLogInRequest userLogInRequest1 = new UserLogInRequest();
+        userLogInRequest1.setEmail("Femi27@email.com");
+        userLogInRequest1.setPassword("1234");
+        UserLogInResponse userLogInResponse1 = userService.userLogIn(userLogInRequest1);
+        assertThat(userLogInResponse1.getMessage()).isEqualTo("Logged In Successfully");
+
         AddContactRequest addContactRequest = new AddContactRequest();
-        addContactRequest.setFirstName("Lovee");
-        addContactRequest.setLastName("Sam");
-        addContactRequest.setPhoneNumber("090109283745");
+        addContactRequest.setFirstName("OLa2");
+        addContactRequest.setLastName("Femi2");
+        addContactRequest.setPhoneNumber("090875434466");
         AddContactsResponse addContactsResponse = contactService.addContact(addContactRequest);
         assertThat(addContactsResponse.getMessage()).isEqualTo("Contact Added Successfully");
 
         UserCanShareContactRequest userCanShareContactRequest = new UserCanShareContactRequest();
         userCanShareContactRequest.setReceiverEmail("Femi27@email.com");
-        userCanShareContactRequest.setSenderId("Ola@email.com");
-        userCanShareContactRequest.setPhoneNumber("090109283745");
+        userCanShareContactRequest.setSenderEmail("Ola@email.com");
+        userCanShareContactRequest.setPhoneNumber("090875434466");
         ShareContactResponse userCanShareContactResponse = userService.userCanShareContact(userCanShareContactRequest);
         assertThat(userCanShareContactResponse.getMessage()).isEqualTo("Contact Shared Successfully");
     }

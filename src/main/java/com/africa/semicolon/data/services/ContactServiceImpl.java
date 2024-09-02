@@ -20,7 +20,6 @@ public class ContactServiceImpl implements ContactService{
     @Override
     public AddContactsResponse addContact(AddContactRequest addContactRequest) {
         Contact contact = new Contact();
-        contact.setUserId(addContactRequest.getUserId());
         contact.setFirstName(addContactRequest.getFirstName());
         contact.setLastName(addContactRequest.getLastName());
         contact.setPhoneNumber(addContactRequest.getPhoneNumber());
@@ -81,8 +80,6 @@ public class ContactServiceImpl implements ContactService{
         Contact contact = contactRepo.findByPhoneNumber(shareContactRequest.getPhoneNumber());
         ShareContactResponse shareContactResponse = new ShareContactResponse();
         shareContactResponse.setPhoneNumber(contact.getPhoneNumber());
-        shareContactResponse.setFirstName(contact.getFirstName());
-        shareContactResponse.setLastName(contact.getLastName());
         shareContactResponse.setId(contact.getId());
         shareContactResponse.setMessage("Contact Shared Successfully");
         return shareContactResponse;
